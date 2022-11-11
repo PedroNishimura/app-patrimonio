@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  mysqldb:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mySqlAdm'
+      MYSQL_DATABASE: 'myWallet'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'mySqlAdm'

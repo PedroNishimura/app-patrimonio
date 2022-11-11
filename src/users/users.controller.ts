@@ -8,27 +8,32 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('/createUser')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  createUser(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createUser(createUserDto);
   }
 
   @Get('/allUsers')
-  findAll() {
-    return this.usersService.findAll()
+  allUsers() {
+    return this.usersService.allUsers()
   }
 
   @Get('/userProfile:id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  userProfile(@Param('id') id: string) {
+    return this.usersService.userProfile(id)
   }
 
   @Patch('/editProfile:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  editProfile(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.editProfile(id, updateUserDto)
   }
 
   @Delete('/deleteUser:id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  deleteUser(@Param('id') id: string) {
+    return this.usersService.deleteUser(id)
+  }
+
+  @Post('/createProfileInvest:id')
+  createProfileInvest(@Param('id') id: string, @Body('profile') profile: string) {
+    return this.usersService.createProfileInvest(id, profile)
   }
 }

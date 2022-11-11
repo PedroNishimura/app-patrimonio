@@ -8,27 +8,22 @@ export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
   @Post('/createWallet')
-  create(@Body() createWalletDto: CreateWalletDto) {
-    return this.walletService.create(createWalletDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.walletService.findAll();
+  createWallet(@Body() createWalletDto: CreateWalletDto) {
+    return this.walletService.createWallet(createWalletDto);
   }
 
   @Get('/myWallet:id')
-  findOne(@Param('id') id: string) {
-    return this.walletService.findOne(+id);
+  myWallet(@Param('id') id: string) {
+    return this.walletService.myWallet(+id);
   }
 
   @Patch('/editWallet:id')
-  update(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
-    return this.walletService.update(+id, updateWalletDto);
+  editWallet(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
+    return this.walletService.editWallet(+id, updateWalletDto);
   }
 
   @Delete('/deleteWallet:id')
-  remove(@Param('id') id: string) {
-    return this.walletService.remove(+id);
+  deleteWallet(@Param('id') id: string) {
+    return this.walletService.deleteWallet(+id);
   }
 }

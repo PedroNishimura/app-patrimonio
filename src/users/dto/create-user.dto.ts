@@ -2,7 +2,7 @@ import { IsString, IsNumber } from "class-validator"
 
 export class CreateUserDto {
     @IsNumber()
-    readonly cpf: number
+    readonly cpf: string
 
     @IsString()
     readonly name: string

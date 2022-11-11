@@ -4,23 +4,19 @@ import { UpdateWalletDto } from './dto/update-wallet.dto';
 
 @Injectable()
 export class WalletService {
-  create(createWalletDto: CreateWalletDto) {
+  createWallet(createWalletDto: CreateWalletDto) {
     return 'This action adds a new wallet';
   }
 
-  findAll() {
-    return `This action returns all wallet`;
-  }
-
-  findOne(id: number) {
+  myWallet(id: number) {
     return `This action returns a #${id} wallet`;
   }
 
-  update(id: number, updateWalletDto: UpdateWalletDto) {
+  editWallet(id: number, updateWalletDto: UpdateWalletDto) {
     return `This action updates a #${id} wallet`;
   }
 
-  remove(id: number) {
+  deleteWallet(id: number) {
     return `This action removes a #${id} wallet`;
   }
 }
