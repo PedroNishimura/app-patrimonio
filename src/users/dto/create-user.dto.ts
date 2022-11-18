@@ -1,7 +1,10 @@
 import { IsString, IsNumber } from "class-validator"
 
 export class CreateUserDto {
-    @IsNumber()
+    //@IsString()
+    //readonly id: string
+
+    @IsString()
     readonly cpf: string
 
     @IsString()
@@ -13,6 +16,6 @@ export class CreateUserDto {
     @IsString()
     readonly sex: string
 
-    @IsString()
-    readonly profile_invest: string
+    //@IsString()
+    //readonly profile_invest: string
 }

@@ -12,7 +12,7 @@ import {
 @Unique(['cpf'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    private id: number
+    private id: string
 
     @Column({nullable: false, type: 'varchar', length: 11})
     private cpf: string
@@ -32,6 +32,6 @@ export class User extends BaseEntity {
     @Column({nullable: false, type: 'varchar', length: 1})
     public sex: string
 
-    @Column({nullable: false, type: 'varchar', length: 32})
+    @Column({nullable: true, type: 'varchar', length: 32})
     public profile_invest:  string
 }
