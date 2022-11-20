@@ -1,3 +1,4 @@
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 import {
     BaseEntity,
     Entity,
@@ -6,16 +7,18 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
+    JoinTable,
 } from 'typeorm';
 
 @Entity()
-@Unique(['cpf'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     private id: string
 
-    @Column({nullable: false, type: 'varchar', length: 11})
-    private cpf: string
+    @JoinTable()
+    @OneToMany((type) => Wallet, (wallet) => wallet.cpfOwner)
+    public cpf: string
 
     @CreateDateColumn()
     private createdAt: Date;

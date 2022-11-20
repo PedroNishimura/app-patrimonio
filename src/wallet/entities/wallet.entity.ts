@@ -1,21 +1,24 @@
+import { type } from 'os';
+import { User } from 'src/users/entities/user.entity';
 import {
     BaseEntity,
     Entity,
-    Unique,
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    JoinTable,
+    ManyToOne,
 } from 'typeorm';
 
 @Entity()
-@Unique(['owner'])
 export class Wallet extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     private id: number
 
-    @Column({nullable: false, type: 'varchar', length: 128})
-    private owner: string
+    @JoinTable()
+    @ManyToOne((type) => User, (user) => user.cpf)
+    public cpfOwner: string
 
     @CreateDateColumn()
     private createdAt: Date;
