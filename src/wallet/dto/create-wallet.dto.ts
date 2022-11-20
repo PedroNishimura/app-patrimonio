@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from "class-validator"
+import { IsString } from "class-validator"
 
 export class CreateWalletDto {
     @IsString()
@@ -12,7 +12,4 @@ export class CreateWalletDto {
 
     @IsString()
     readonly type_invest: string
-
-    @IsNumber()
-    readonly total_price: number
 }

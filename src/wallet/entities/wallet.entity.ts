@@ -17,8 +17,8 @@ export class Wallet extends BaseEntity {
     private id: number
 
     @JoinTable()
-    @ManyToOne((type) => User, (user) => user.cpf)
-    public cpfOwner: string
+    @ManyToOne((type) => User, (user) => user.id)
+    public owner: string
 
     @CreateDateColumn()
     private createdAt: Date;
@@ -35,6 +35,6 @@ export class Wallet extends BaseEntity {
     @Column({nullable: false, type: 'varchar', length: 32})
     public type_invest: string
 
-    @Column({nullable: false, type: 'float'})
+    @Column({nullable: true, type: 'float'})
     public total_price: number
 }

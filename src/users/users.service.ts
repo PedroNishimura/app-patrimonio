@@ -31,7 +31,7 @@ export class UsersService {
   async editProfile(id: string, updateUserDto: UpdateUserDto) {
     await this.userRepository.createQueryBuilder()
     .update({
-        ...updateUserDto,
+      ...updateUserDto
     })
     .where({
         id: id,

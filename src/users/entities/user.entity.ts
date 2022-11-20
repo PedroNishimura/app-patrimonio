@@ -12,13 +12,13 @@ import {
 } from 'typeorm';
 
 @Entity()
+@Unique(['cpf'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    private id: string
+    public id: string
 
-    @JoinTable()
-    @OneToMany((type) => Wallet, (wallet) => wallet.cpfOwner)
-    public cpf: string
+    @Column({nullable: false, type: 'varchar', length: 11})
+    private cpf: string
 
     @CreateDateColumn()
     private createdAt: Date;

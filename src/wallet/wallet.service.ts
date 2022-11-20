@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getManager } from 'typeorm';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 import { Wallet } from './entities/wallet.entity';
@@ -9,8 +9,16 @@ import { Wallet } from './entities/wallet.entity';
 export class WalletService {
   constructor(@InjectRepository(Wallet) private readonly walletRepository: Repository<Wallet>) {}
 
-  createWallet(createWalletDto: CreateWalletDto) {
-    return 'This action adds a new wallet';
+  async createWallet(createWalletDto: CreateWalletDto) {
+    await this.walletRepository.createQueryBuilder()
+    .insert()
+    .into(Wallet)
+    .values({
+      ...createWalletDto,
+    })
+    .execute()
+
+    return `Wallet has been created`
   }
 
   async myWallet(id: number) {
