@@ -14,16 +14,16 @@ export class WalletController {
 
   @Get('/myWallet:id')
   myWallet(@Param('id') id: string) {
-    return this.walletService.myWallet(+id);
+    return this.walletService.myWallet(id);
   }
 
   @Patch('/editWallet:id')
   editWallet(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
-    return this.walletService.editWallet(+id, updateWalletDto);
+    return this.walletService.editWallet(id, updateWalletDto);
   }
 
   @Delete('/deleteWallet:id')
   deleteWallet(@Param('id') id: string) {
-    return this.walletService.deleteWallet(+id);
+    return this.walletService.deleteWallet(id);
   }
 }

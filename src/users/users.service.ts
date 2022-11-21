@@ -10,8 +10,13 @@ export class UsersService {
   constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
   async createUser(createUserDto: CreateUserDto) {
-    const newUser = await this.userRepository.create(createUserDto)
-    await this.userRepository.save(newUser)
+    await this.userRepository.createQueryBuilder()
+    .insert()
+    .into(User)
+    .values({
+      ...createUserDto,
+    })
+    .execute()
 
     return `User has been created`
   }
@@ -29,23 +34,29 @@ export class UsersService {
   }
 
   async editProfile(id: string, updateUserDto: UpdateUserDto) {
-    await this.userRepository.createQueryBuilder()
-    .update({
-      ...updateUserDto
-    })
-    .where({
-        id: id,
-    })
-    .execute()
+    const user = await this.userRepository.findOne(id)
 
-    return `User has been updated`
+    if (user) {
+      await this.userRepository.createQueryBuilder()
+      .update({
+        ...updateUserDto
+      })
+      .where({
+          id: id,
+      })
+      .execute()
+
+      return `User has been updated`
+    } else {
+      return `User does not exists`
+    }
   }
 
   async deleteUser(id: string) {
-    const deleteUser = await this.userRepository.findOne(id)
+    const user = await this.userRepository.findOne(id)
     
-    if (deleteUser) {
-      this.userRepository.remove(deleteUser)
+    if (user) {
+      await this.userRepository.remove(user)
     }
 
     return `User has been removed`;

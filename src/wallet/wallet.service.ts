@@ -21,19 +21,38 @@ export class WalletService {
     return `Wallet has been created`
   }
 
-  async myWallet(id: number) {
-    const myWallet = await this.walletRepository.find({
-      relations: ['user']
-    })
+  async myWallet(id: string) {
+    const myWallet = await this.walletRepository.findOne(id)
 
-    return `This action returns a #${id} wallet`;
+    return myWallet;
   }
 
-  editWallet(id: number, updateWalletDto: UpdateWalletDto) {
-    return `This action updates a #${id} wallet`;
+  async editWallet(id: string, updateWalletDto: UpdateWalletDto) {
+    const wallet = await this.walletRepository.findOne(id)
+
+    if (wallet) {
+      await this.walletRepository.createQueryBuilder()
+      .update({
+        ...updateWalletDto
+      })
+      .where({
+          id: id,
+      })
+      .execute()
+
+      return `Wallet has been updated`
+    } else {
+      return `Wallet does not exists`
+    }
   }
 
-  deleteWallet(id: number) {
-    return `This action removes a #${id} wallet`;
+  async deleteWallet(id: string) {
+    const wallet = await this.walletRepository.findOne(id)
+    
+    if (wallet) {
+      await this.walletRepository.remove(wallet)
+    }
+
+    return `Wallet has been removed`;
   }
 }
