@@ -21,8 +21,10 @@ export class WalletService {
     return `Wallet has been created`
   }
 
-  async myWallet(id: string) {
-    const myWallet = await this.walletRepository.findOne(id)
+  async myWallet(ownerId: string) {
+    const myWallet = await this.walletRepository.createQueryBuilder("wallet")
+    .where("wallet.ownerId = :ownerId", { ownerId: ownerId })
+    .getMany()
 
     return myWallet;
   }

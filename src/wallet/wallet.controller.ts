@@ -12,9 +12,9 @@ export class WalletController {
     return this.walletService.createWallet(createWalletDto);
   }
 
-  @Get('/myWallet:id')
-  myWallet(@Param('id') id: string) {
-    return this.walletService.myWallet(id);
+  @Get('/myWallet:ownerId')
+  myWallet(@Param('ownerId') ownerId: string) {
+    return this.walletService.myWallet(ownerId);
   }
 
   @Patch('/editWallet:id')
