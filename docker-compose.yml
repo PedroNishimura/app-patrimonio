@@ -25,5 +25,3 @@ services:
       MYSQL_ROOT_PASSWORD: 'mySqlAdm'
       MYSQL_DATABASE: 'myWallet'
       MYSQL_PASSWORD: 'mySqlAdm'
-volumes:
-  myapp_mysql_data:
