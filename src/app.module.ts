@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { typeOrmConfig } from './config/typeorm.config'
 import { UsersModule } from './users/users.module'
 import { WalletModule } from './wallet/wallet.module'
+const ormConfig = require('../ormConfig.js')
 
 @Module({
   imports: [
     UsersModule, 
     WalletModule, 
-    TypeOrmModule.forRoot(typeOrmConfig)
+    TypeOrmModule.forRoot(ormConfig)
   ],
   controllers: [],
   providers: [],
