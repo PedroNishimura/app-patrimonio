@@ -9,7 +9,17 @@ describe('Users: /users', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
-        UsersModule
+        UsersModule,
+        TypeOrmModule.forRoot({
+          type: 'mysql',
+          host: 'mysqldbtest',
+          port: 3307,
+          username: 'root',
+          password: 'mySqlAdm',
+          database: 'myWalletTest',
+          autoLoadEntities: true,
+          synchronize: true
+        })
       ],
     }).compile();
 
