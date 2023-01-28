@@ -10,15 +10,11 @@ export class UsersService {
   private userRepository: Repository<User>
 
   async createUser(createUserDto: CreateUserDto) {
-    await this.userRepository.createQueryBuilder()
-    .insert()
-    .into(User)
-    .values({
-      ...createUserDto,
-    })
-    .execute()
+    const user = await this.userRepository.create({
+      ...createUserDto
+    });
 
-    return `User has been created`;
+    return this.userRepository.save(user);
   }
 
   async allUsers(): Promise<User[]> {
@@ -36,13 +32,20 @@ export class UsersService {
   }
 
   async editProfile(id: string, updateUserDto: UpdateUserDto) {
-  
-    return `User has been updated`;
+    const user = await this.userRepository.preload({
+      id,
+      ...updateUserDto
+    });
+
+    return this.userRepository.save(user);
   }
 
   async deleteUser(id: string) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+    });
 
-    return `User has been removed`;
+    return this.userRepository.remove(user);
   }
 
   async createProfileInvest(id: string, profile: string) {
@@ -56,5 +59,5 @@ export class UsersService {
     .execute()
 
     return 'This action add a profile invest to a user';
-  }
+  } //FAZER O TESTE DEPOIS
 }
