@@ -9,7 +9,7 @@ COPY package.json ./
 RUN npm install
 
 # Copy important files - Add ormconfig.ts here if using Typeorm
-COPY .eslintrc.js nest-cli.json tsconfig.json tsconfig.build.json ormConfig.js ./
+COPY .eslintrc.js nest-cli.json tsconfig.json tsconfig.build.json ./
 
 # Entrypoint command - Replace `"yarn"` with `"npm", "run"` if you are using NPM as your package manager.
 # You can update this to run other NodeJS apps

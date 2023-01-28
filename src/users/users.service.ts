@@ -1,6 +1,4 @@
-import { Injectable } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common/exceptions';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,7 +6,8 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+  @Inject('USERS_REPOSITORY')
+  private userRepository: Repository<User>
 
   async createUser(createUserDto: CreateUserDto) {
     await this.userRepository.createQueryBuilder()
@@ -19,50 +18,29 @@ export class UsersService {
     })
     .execute()
 
-    return `User has been created`
+    return `User has been created`;
   }
 
-  async allUsers() {
-    const allUsers = await this.userRepository.find()
+  async allUsers(): Promise<User[]> {
+    const allUsers = await this.userRepository.find();
 
-    return allUsers
+    return allUsers;
   }
 
   async userProfile(id: string) {
-    const userProfile = await this.userRepository.findOne(id)
+    const userProfile = await this.userRepository.findOne({
+      where: { id }
+    })
 
-    if (!userProfile) {
-      throw new NotFoundException(`User does not exists`)
-    }
-
-    return userProfile
+    return userProfile;
   }
 
   async editProfile(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.findOne(id)
-
-    if (user) {
-      await this.userRepository.createQueryBuilder()
-      .update({
-        ...updateUserDto
-      })
-      .where({
-          id: id,
-      })
-      .execute()
-
-      return `User has been updated`
-    } else {
-      return `User does not exists`
-    }
+  
+    return `User has been updated`;
   }
 
   async deleteUser(id: string) {
-    const user = await this.userRepository.findOne(id)
-    
-    if (user) {
-      await this.userRepository.remove(user)
-    }
 
     return `User has been removed`;
   }
@@ -77,6 +55,6 @@ export class UsersService {
     })
     .execute()
 
-    return 'This action add a profile invest to a user'
+    return 'This action add a profile invest to a user';
   }
 }
