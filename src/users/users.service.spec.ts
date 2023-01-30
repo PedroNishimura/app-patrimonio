@@ -115,7 +115,7 @@ describe('UsersService', () => {
     };
 
     const mockUserRepository = {
-      update: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
+      editProfile: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
       save: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
       preload: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
     };
@@ -159,6 +159,31 @@ describe('UsersService', () => {
     const user = await service.deleteUser(id);
 
     expect(mockUserRepository.remove).toHaveBeenCalled();
+    expect(expectOutput).toStrictEqual(user);
+  });
+
+  it('should create a profile invest', async () => {
+    const expectOutput = {
+      id,
+      name: 'Pedro',
+      cpf: '43344680803',
+      age: 21,
+      sex: 'M',
+      createdAt: date
+    };
+
+    const mockUserRepository = {
+      createProfileInvest: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
+      save: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
+      preload: jest.fn().mockReturnValue(Promise.resolve(expectOutput)),
+    };
+
+    //@ts-expect-error defined part of methods
+    service['userRepository'] = mockUserRepository;
+
+    const user = await service.createProfileInvest(id, 'CONSERVADOR');
+
+    expect(mockUserRepository.save).toHaveBeenCalled();
     expect(expectOutput).toStrictEqual(user);
   });
 });

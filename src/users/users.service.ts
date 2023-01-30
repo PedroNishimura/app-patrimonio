@@ -49,15 +49,11 @@ export class UsersService {
   }
 
   async createProfileInvest(id: string, profile: string) {
-    await this.userRepository.createQueryBuilder()
-    .update({
-        profile_invest: profile,
-    })
-    .where({
-        id: id,
-    })
-    .execute()
+    const user = await this.userRepository.preload({
+      id,
+      profile_invest: profile,
+    });
 
-    return 'This action add a profile invest to a user';
+    return this.userRepository.save(user);
   } //FAZER O TESTE DEPOIS
 }
